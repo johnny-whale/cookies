@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="row mt-2">
+    <div class="col-6">
+      <label for="searchName">Искать по имени:</label>
+      <input type="text" id="searchName" class="form-control" [(ngModel)]="searchName">
+    </div>
+    <div class="col-6">
+      <label for="searchSurname">Искать по фамилии:</label>
+      <input type="text" id="searchSurname" class="form-control" [(ngModel)]="searchSurname">
+    </div>
+  </div>
+  <div class="row mt-2" *ngFor="let worker of workers | name:searchName:searchSurname">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Имя: {{worker.name}}</h5>
+          <h5 class="card-title">Фамлия: {{worker.surname}}</h5>
+          <p class="card-text" *ngIf="worker.status; else elseBlock">Должность: Руководитель</p>
+          <ng-template #elseBlock>
+            <p class="card-text">Должность: Сотрудник</p>
+          </ng-template>
+          <p class="card-text">Телефон: {{worker.number}}</p>
+          <button class="btn btn-primary mr-2" [routerLink]="['/edit', worker.id]">Редактировать</button>
+          <button class="btn btn-danger" (click)="removeWorker(worker.id)">Удалить</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

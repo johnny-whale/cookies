@@ -1,0 +1,52 @@
+<div class="container">
+  <form [formGroup]="workerForm">
+    <div class="row mt-2">
+      <div class="col-12">
+        <input type="hidden" id="id" class="form-control" formControlName="id">
+        <label for="name">Имя:</label>
+        <input type="text" id="name" class="form-control" formControlName="name">
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-12">
+        <label for="surname">Фамилия:</label>
+        <input type="text" id="surname" class="form-control" formControlName="surname">
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-12">
+        <label for="number">Номер:</label>
+        <input type="text" id="number" [textMask]="{mask: pattern}" class="form-control" formControlName="number">
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-12">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" formControlName="status">
+          <label class="form-check-label" for="defaultCheck1">Руководитель</label>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-12">
+        <input type="submit" class="btn btn-primary form-control" [disabled]="!workerForm.valid" value="Добавить сотрудника" (click)="submit()">
+      </div>
+    </div>
+  </form>
+  <div class="row mt-2">
+    <div class="col-6">
+      <label for="searchName">Искать по имени:</label>
+      <input type="text" id="searchName" class="form-control" [(ngModel)]="searchName">
+    </div>
+    <div class="col-6">
+      <label for="searchSurname">Искать по фамилии:</label>
+      <input type="text" id="searchSurname" class="form-control" [(ngModel)]="searchSurname">
+    </div>
+  </div>
+  <app-worker
+    *ngFor="let worker of workers | name:searchName:searchSurname"
+    [worker]="worker"
+    (deletedWorker)="deleteWorker($event)"
+    (editedWorker)="editWorker($event)">
+  </app-worker>
+</div>

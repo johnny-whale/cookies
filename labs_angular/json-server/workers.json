@@ -1,0 +1,11 @@
+{
+  "workers": [
+    {
+      "id": 3,
+      "name": "алло",
+      "surname": "да",
+      "number": "+7(800) 555-35-35",
+      "status": null
+    }
+  ]
+}

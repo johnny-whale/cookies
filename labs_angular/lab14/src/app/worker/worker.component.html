@@ -1,0 +1,58 @@
+<div class="row mt-2">
+  <div class="col-12">
+    <div class="card" *ngIf="!edit; else elseBlock2">
+      <div class="card-body">
+        <h5 class="card-title">Имя: {{worker.name}}</h5>
+        <h5 class="card-title">Фамлия: {{worker.surname}}</h5>
+        <p class="card-text" *ngIf="worker.status; else elseBlock">Должность: Руководитель</p>
+        <ng-template #elseBlock>
+          <p class="card-text">Должность: Сотрудник</p>
+        </ng-template>
+        <p class="card-text">Телефон: {{worker.number}}</p>
+        <button class="btn btn-primary mr-2" (click)="edit = !edit">Редактировать</button>
+        <button class="btn btn-danger" (click)="removeWorker(worker.id)">Удалить</button>
+      </div>
+    </div>
+
+    <ng-template #elseBlock2>
+      <div class="card">
+        <div class="card-body">
+          <form [formGroup]="workerForm">
+            <div class="row mt-2">
+              <div class="col-12">
+                <input type="hidden" id="id" class="form-control" formControlName="id" [ngModel]="worker.id">
+                <label for="name">Имя:</label>
+                <input type="text" id="name" class="form-control" formControlName="name">
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-12">
+                <label for="surname">Фамилия:</label>
+                <input type="text" id="surname" class="form-control" formControlName="surname">
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-12">
+                <label for="surname">Номер:</label>
+                <input type="text" id="number" class="form-control" [textMask]="{mask: mask}" formControlName="number">
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-12">
+                <div class="form-check">
+                  <label class="form-check-label"><input class="form-check-input" type="checkbox" formControlName="status">
+                  Руководитель</label>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-12">
+                <input type="submit" class="btn btn-primary form-control" value="Изменить" [disabled]="!workerForm.valid" (click)="editWorker(worker.id)">
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>
